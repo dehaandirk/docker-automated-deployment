@@ -2,7 +2,7 @@
 	# bron: https://www.howtoforge.com/tutorial/ubuntu-nagios/
 
 # variablen
-NAGIOS_VERSION="4.2.0"
+NAGIOS_VERSION="4.3.2"
 NAGIOS_PLUGINGS="2.1.2"
 NAGIOS_USERNAME="administrator"
 
