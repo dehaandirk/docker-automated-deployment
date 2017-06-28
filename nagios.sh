@@ -3,7 +3,7 @@
 
 # variablen
 NAGIOS_VERSION="4.3.2"
-NAGIOS_PLUGINGS="2.1.2"
+NAGIOS_PLUGINGS="2.2.2"
 NAGIOS_USERNAME="administrator"
 
 TEMP="/tmp/download"
@@ -72,6 +72,7 @@ sudo ln -s /etc/apache2/sites-available/nagios.conf /etc/apache2/sites-enabled/
 
 
 sudo service apache2 restart
+sudo systemctl start nagios.service
 
 sudo ln -s /etc/init.d/nagios /etc/rcS.d/S99nagios
 
