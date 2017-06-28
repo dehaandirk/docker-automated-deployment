@@ -11,9 +11,6 @@ sudo service salt-master start
 
 sudo sed -i '/#master: salt/c\master: $SALT_MASTER_IP' /etc/salt/minion
 
+(crontab -l 2>/dev/null; echo "*/5 * * * * salt-key -Ay") | crontab -
 
 
-
-
-
-sudo salt-key -Ay
