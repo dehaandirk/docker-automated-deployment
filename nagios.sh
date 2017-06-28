@@ -1,10 +1,12 @@
 #!/bin/bash
 	# bron: https://www.howtoforge.com/tutorial/ubuntu-nagios/
+	# bron: https://github.com/dyson/nagios-ubuntu-install-script
+	# bron: https://serverfault.com/questions/774498/failed-to-start-nagios-service-unit-nagios-service-failed-to-load-no-such-file
 
 # variablen
 NAGIOS_VERSION="4.3.2"
-NAGIOS_PLUGINGS="2.2.2"
-NAGIOS_USERNAME="administrator"
+NAGIOS_PLUGIN="2.2.2"
+NAGIOS_USERNAME="nagiosadmin"
 NAGIOS_PASSWORD="admin"
 
 TEMP="/tmp/download"
@@ -22,7 +24,6 @@ sudo usermod -a -G nagcmd nagios
 sudo usermod -a -G nagios,nagcmd www-data
 
 # Download Nagios
-
 mkdir -p $TEMP
 cd $TEMP
 wget https://assets.nagios.com/downloads/nagioscore/releases/nagios-$NAGIOS_VERSION.tar.gz
@@ -43,23 +44,25 @@ sudo /usr/bin/install -c -m 644 sample-config/httpd.conf /etc/apache2/sites-avai
 sudo cp -R contrib/eventhandlers/ /usr/local/nagios/libexec/
 sudo chown -R nagios:nagios /usr/local/nagios/libexec/eventhandlers
 
+
 # download Plugins
 cd $TEMP
-wget https://nagios-plugins.org/download/nagios-plugins-$NAGIOS_PLUGINGS.tar.gz
-tar -xzf nagios-plugins-$NAGIOS_PLUGINGS.tar.gz
-cd nagios-plugins-$NAGIOS_PLUGINGS/
+wget https://nagios-plugins.org/download/nagios-plugins-$NAGIOS_PLUGIN.tar.gz
+tar -xzf nagios-plugins-$NAGIOS_PLUGIN.tar.gz
+cd nagios-plugins-$NAGIOS_PLUGIN/
+
 
 # Install Plugins
 sudo ./configure --with-nagios-user=nagios --with-nagios-group=nagios --with-openssl
 sudo make install
+
 
 # Configure nagios
 sudo sh -c 'echo 'cfg_dir=/usr/local/nagios/etc/servers' >> /usr/local/nagios/etc/nagios.cfg'
 sudo mkdir -p /usr/local/nagios/etc/servers
 
 
-
-
+# Service nagios aanmaken
 sudo sh -c 'echo "[Unit]" >> /etc/systemd/system/nagios.service'
 sudo sh -c 'echo "Description=Nagios" >> /etc/systemd/system/nagios.service'
 sudo sh -c 'echo "BindTo=network.target" >> /etc/systemd/system/nagios.service'
@@ -75,17 +78,19 @@ sudo sh -c 'echo "ExecStart=/usr/local/nagios/bin/nagios /usr/local/nagios/etc/n
 sudo systemctl enable /etc/systemd/system/nagios.service
 
 
+# Gebruiker nagios aanmaken
+sudo htpasswd -bc /usr/local/nagios/etc/htpasswd.users $NAGIOS_USERNAME $NAGIOS_PASSWORD
+
+
 # Configuring Apache
 sudo a2enmod rewrite
 sudo a2enmod cgi
-
-sudo htpasswd -bc /usr/local/nagios/etc/htpasswd.users $NAGIOS_USERNAME $NAGIOS_PASSWORD
-
 sudo ln -s /etc/apache2/sites-available/nagios.conf /etc/apache2/sites-enabled/
 
+
+# services starten
 sudo service apache2 restart
 sudo systemctl start nagios
-
 sudo ln -s /etc/init.d/nagios /etc/rcS.d/S99nagios
 
 
