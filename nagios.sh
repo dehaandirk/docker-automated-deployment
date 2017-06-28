@@ -50,14 +50,12 @@ sudo mkdir -p /usr/local/nagios/etc/servers
 sudo a2enmod rewrite
 sudo a2enmod cgi
 
-printf "%s %s\n" "Please enter a password for the Nagios web administration user:" administrator
-sudo htpasswd -c -b /usr/local/nagios/etc/htpasswd.users administrator admin
+sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users administrator
 
 sudo ln -s /etc/apache2/sites-available/nagios.conf /etc/apache2/sites-enabled/
 
 
 sudo service apache2 restart
-sudo service nagios start
 
 sudo ln -s /etc/init.d/nagios /etc/rcS.d/S99nagios
 
