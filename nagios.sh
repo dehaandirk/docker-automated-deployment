@@ -56,6 +56,10 @@ cd nagios-plugins-$NAGIOS_PLUGIN/
 sudo ./configure --with-nagios-user=nagios --with-nagios-group=nagios --with-openssl
 sudo make install
 
+sudo apt-get --yes install nagios-plugins
+sudo cp /usr/lib/nagios/plugins/check_* /usr/local/nagios/libexec
+sudo apt-get --yes install nagios-nrpe-server nagios-plugins
+
 
 # Configure nagios
 sudo sh -c 'echo 'cfg_dir=/usr/local/nagios/etc/servers' >> /usr/local/nagios/etc/nagios.cfg'
@@ -80,7 +84,6 @@ sudo systemctl enable /etc/systemd/system/nagios.service
 
 # Gebruiker nagios aanmaken
 sudo htpasswd -bc /usr/local/nagios/etc/htpasswd.users $NAGIOS_USERNAME $NAGIOS_PASSWORD
-
 
 # Configuring Apache
 sudo a2enmod rewrite
