@@ -9,5 +9,5 @@ sudo sh soltstack.sh
 
 
 
-
+#sudo sh nagios_connect.sh
 #sudo sh soltstack_minion.sh
