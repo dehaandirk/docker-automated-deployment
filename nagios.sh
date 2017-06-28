@@ -1,10 +1,12 @@
 #!/bin/bash
+	# bron: https://www.howtoforge.com/tutorial/ubuntu-nagios/
 
 # variablen
 NAGIOS_VERSION="4.2.0"
 NAGIOS_PLUGINGS="2.1.2"
+NAGIOS_USERNAME="administrator"
 
-TEMP="/tmp/download"
+TEMP="/tmp/netwerk/download"
 
 
 # Prerequisites
@@ -60,6 +62,11 @@ sudo a2enmod rewrite
 sudo a2enmod cgi
 
 #sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users administrator
+printf "\n"
+printf "%s %s\n" "Please enter a password for the Nagios web administration user:" $NAGIOS_USERNAME
+sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users $NAGIOS_USERNAME
+printf "\n"
+
 
 sudo ln -s /etc/apache2/sites-available/nagios.conf /etc/apache2/sites-enabled/
 
