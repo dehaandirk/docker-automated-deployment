@@ -4,7 +4,7 @@
 NAGIOS_VERSION="4.2.0"
 NAGIOS_PLUGINGS="2.1.2"
 
-THEMP="/tmp/download"
+TEMP="/tmp/download"
 
 
 # Prerequisites
