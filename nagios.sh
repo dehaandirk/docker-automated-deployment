@@ -56,6 +56,9 @@ sudo make install
 sudo sh -c 'echo 'cfg_dir=/usr/local/nagios/etc/servers' >> /usr/local/nagios/etc/nagios.cfg'
 sudo mkdir -p /usr/local/nagios/etc/servers
 
+sudo printf '[Unit]\n Description=Nagios\n BindTo=network.target\n \n  [Install]\n WantedBy=multi-user.target\n \n [Service]\n User=nagios\n Group=nagios\n Type=simple\n ExecStart=/usr/local/nagios/bin/nagios /usr/local/nagios/etc/nagios.cfg\n' > /etc/systemd/system/nagios.service
+sudo systemctl enable /etc/systemd/system/nagios.service
+
 
 # Configuring Apache
 sudo a2enmod rewrite
@@ -72,7 +75,7 @@ sudo ln -s /etc/apache2/sites-available/nagios.conf /etc/apache2/sites-enabled/
 
 
 sudo service apache2 restart
-sudo systemctl start nagios.service
+sudo systemctl  start nagios
 
 sudo ln -s /etc/init.d/nagios /etc/rcS.d/S99nagios
 
