@@ -5,6 +5,7 @@
 NAGIOS_VERSION="4.3.2"
 NAGIOS_PLUGINGS="2.2.2"
 NAGIOS_USERNAME="administrator"
+NAGIOS_PASSWORD="admin"
 
 TEMP="/tmp/download"
 
@@ -56,7 +57,21 @@ sudo make install
 sudo sh -c 'echo 'cfg_dir=/usr/local/nagios/etc/servers' >> /usr/local/nagios/etc/nagios.cfg'
 sudo mkdir -p /usr/local/nagios/etc/servers
 
-sudo printf '[Unit]\n Description=Nagios\n BindTo=network.target\n \n  [Install]\n WantedBy=multi-user.target\n \n [Service]\n User=nagios\n Group=nagios\n Type=simple\n ExecStart=/usr/local/nagios/bin/nagios /usr/local/nagios/etc/nagios.cfg\n' > /etc/systemd/system/nagios.service
+
+
+
+sudo sh -c 'echo "[Unit]" >> /etc/systemd/system/nagios.service'
+sudo sh -c 'echo "Description=Nagios" >> /etc/systemd/system/nagios.service'
+sudo sh -c 'echo "BindTo=network.target" >> /etc/systemd/system/nagios.service'
+sudo sh -c 'echo " " >> /etc/systemd/system/nagios.service'
+sudo sh -c 'echo "[Install]" >> /etc/systemd/system/nagios.service'
+sudo sh -c 'echo "WantedBy=multi-user.target" >> /etc/systemd/system/nagios.service'
+sudo sh -c 'echo " " >> /etc/systemd/system/nagios.service'
+sudo sh -c 'echo "[Service]" >> /etc/systemd/system/nagios.service'
+sudo sh -c 'echo "User=nagios" >> /etc/systemd/system/nagios.service'
+sudo sh -c 'echo "Group=nagios" >> /etc/systemd/system/nagios.service'
+sudo sh -c 'echo "Type=simple" >> /etc/systemd/system/nagios.service'
+sudo sh -c 'echo "ExecStart=/usr/local/nagios/bin/nagios /usr/local/nagios/etc/nagios.cfg" >> /etc/systemd/system/nagios.service'
 sudo systemctl enable /etc/systemd/system/nagios.service
 
 
@@ -64,18 +79,12 @@ sudo systemctl enable /etc/systemd/system/nagios.service
 sudo a2enmod rewrite
 sudo a2enmod cgi
 
-#sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users administrator
-printf "\n"
-printf "%s %s\n" "Please enter a password for the Nagios web administration user:" $NAGIOS_USERNAME
-sudo htpasswd -c /usr/local/nagios/etc/htpasswd.users $NAGIOS_USERNAME
-printf "\n"
-
+sudo htpasswd -bc /usr/local/nagios/etc/htpasswd.users $NAGIOS_USERNAME $NAGIOS_PASSWORD
 
 sudo ln -s /etc/apache2/sites-available/nagios.conf /etc/apache2/sites-enabled/
 
-
 sudo service apache2 restart
-sudo systemctl  start nagios
+sudo systemctl start nagios
 
 sudo ln -s /etc/init.d/nagios /etc/rcS.d/S99nagios
 
