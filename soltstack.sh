@@ -16,4 +16,4 @@ sudo sed -i '/#master: salt/c\master: $SALT_MASTER_IP' /etc/salt/minion
 
 
 
-sudo salt-key -A
+sudo salt-key -Ay

@@ -5,3 +5,8 @@ sudo git clone https://github.com/dehaandirk/network/ /tmp/network && cd /tmp/ne
 sudo sh nagios.sh
 sudo sh docker.sh
 sudo sh soltstack.sh
+
+
+
+
+#sudo sh soltstack_minion.sh

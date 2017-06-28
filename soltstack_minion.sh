@@ -1,6 +1,6 @@
 #!/bin/bash
 
-sudo add-apt-repository ppa:saltstack/salt
+sudo add-apt-repository --yes ppa:saltstack/salt 
 sudo apt-get update
 sudo apt-get install --yes salt-minion
 
