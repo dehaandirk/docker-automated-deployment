@@ -3,7 +3,7 @@
 SALT_MASTER_IP="192.168.2.143"
 
 
-sudo add-apt-repository --yes ppa:saltstack/salt 
+sudo add-apt-repository ppa:saltstack/salt -y
 sudo apt-get update
 sudo apt-get install --yes salt-minion
 
