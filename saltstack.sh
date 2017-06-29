@@ -11,7 +11,7 @@ sudo service salt-master start
 
 sudo sed -i '/#master: salt/c\master: $SALT_MASTER_IP' /etc/salt/minion
 
-(crontab -l 2>/dev/null; echo "*/5 * * * * salt-key -Ay") | crontab -
+(crontab -l 2>/dev/null; echo "*/5 * * * * sudo salt-key -Ay") | crontab -
 
 
 
@@ -20,8 +20,11 @@ sudo sed -i '/#master: salt/c\master: $SALT_MASTER_IP' /etc/salt/minion
 
 
 # install docker met salt
-
+cd ~
+sudo mkdir /srv/salt
 sudo cp /tmp/network/top.sls /srv/salt/top.sls
 sudo cp /tmp/network/docker.sls /srv/salt/docker.sls
+sudo cp /tmp/network/app.sls /srv/salt/app.sls
 sudo cp /tmp/network/wordpress.sls /srv/salt/wordpress.sls
 
+sudo salt-call state.highstate  
