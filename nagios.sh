@@ -2,6 +2,7 @@
 	# bron: https://www.howtoforge.com/tutorial/ubuntu-nagios/
 	# bron: https://github.com/dyson/nagios-ubuntu-install-script
 	# bron: https://serverfault.com/questions/774498/failed-to-start-nagios-service-unit-nagios-service-failed-to-load-no-such-file
+	# bron: https://lintut.com/adding-clients-to-nagios-server/
 
 # variablen
 NAGIOS_VERSION="4.3.2"
@@ -103,11 +104,31 @@ sudo sh -c 'echo "use linux-server" >> /usr/local/nagios/etc/servers/clients.cfg
 sudo sh -c 'echo "host_name Minion1" >> /usr/local/nagios/etc/servers/clients.cfg'
 sudo sh -c 'echo "alias client" >> /usr/local/nagios/etc/servers/clients.cfg'
 sudo sh -c 'echo "address 192.168.2.144" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "contact_groups admins" >> /usr/local/nagios/etc/servers/clients.cfg'
 sudo sh -c 'echo "max_check_attempts 5" >> /usr/local/nagios/etc/servers/clients.cfg'
 sudo sh -c 'echo "check_period 24x7" >> /usr/local/nagios/etc/servers/clients.cfg'
 sudo sh -c 'echo "notification_interval 30" >> /usr/local/nagios/etc/servers/clients.cfg'
 sudo sh -c 'echo "notification_period 24x7" >> /usr/local/nagios/etc/servers/clients.cfg'
 sudo sh -c 'echo "}" >> /usr/local/nagios/etc/servers/clients.cfg'
+
+
+# check disk
+sudo sh -c 'echo "define service{" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "use                             generic-service" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "host_name                       Minion1" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "service_description             Root Partition" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "contact_groups                  admins" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "check_command                   check_nrpe!check_disk" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "}" >> /usr/local/nagios/etc/servers/clients.cfg'
+
+#check processes
+sudo sh -c 'echo "define service{" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "use                             generic-service" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "host_name                       Minion1" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "service_description     		  Total Processes" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "check_command          		  check_nrpe!check_total_procs" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "}" >> /usr/local/nagios/etc/servers/clients.cfg'
+
 
 #Minion2 toevoegen
 sudo sh -c 'echo "define host{" >> /usr/local/nagios/etc/servers/clients.cfg'
@@ -115,13 +136,31 @@ sudo sh -c 'echo "use linux-server" >> /usr/local/nagios/etc/servers/clients.cfg
 sudo sh -c 'echo "host_name Minion2" >> /usr/local/nagios/etc/servers/clients.cfg'
 sudo sh -c 'echo "alias client" >> /usr/local/nagios/etc/servers/clients.cfg'
 sudo sh -c 'echo "address 192.168.2.145" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "contact_groups admins" >> /usr/local/nagios/etc/servers/clients.cfg'
 sudo sh -c 'echo "max_check_attempts 5" >> /usr/local/nagios/etc/servers/clients.cfg'
 sudo sh -c 'echo "check_period 24x7" >> /usr/local/nagios/etc/servers/clients.cfg'
 sudo sh -c 'echo "notification_interval 30" >> /usr/local/nagios/etc/servers/clients.cfg'
 sudo sh -c 'echo "notification_period 24x7" >> /usr/local/nagios/etc/servers/clients.cfg'
 sudo sh -c 'echo "}" >> /usr/local/nagios/etc/servers/clients.cfg'
 
+# check disk
+sudo sh -c 'echo "define service{" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "use                             generic-service" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "host_name                       Minion2" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "service_description             Root Partition" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "contact_groups                  admins" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "check_command                   check_nrpe!check_disk" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "}" >> /usr/local/nagios/etc/servers/clients.cfg'
 
+#check processes
+sudo sh -c 'echo "define service{" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "use                             generic-service" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "host_name                       Minion2" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "service_description     		  Total Processes" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "check_command          		  check_nrpe!check_total_procs" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "}" >> /usr/local/nagios/etc/servers/clients.cfg'
+
+sudo systemctl restart nagios
 
 
 
