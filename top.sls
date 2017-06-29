@@ -1,5 +1,5 @@
 base:  
-  'Minion2':
+  '*':
     - docker
-	- app
+    - app
     - wordpress
