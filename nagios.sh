@@ -97,6 +97,41 @@ sudo systemctl start nagios
 sudo ln -s /etc/init.d/nagios /etc/rcS.d/S99nagios
 
 
+#Minion1 toevoegen
+sudo sh -c 'echo "define host{" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "use linux-server" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "host_name Minion1" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "alias client" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "address 192.168.2.144" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "max_check_attempts 5" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "check_period 24x7" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "notification_interval 30" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "notification_period 24x7" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "}" >> /usr/local/nagios/etc/servers/clients.cfg'
+
+#Minion2 toevoegen
+sudo sh -c 'echo "define host{" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "use linux-server" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "host_name Minion2" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "alias client" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "address 192.168.2.145" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "max_check_attempts 5" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "check_period 24x7" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "notification_interval 30" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "notification_period 24x7" >> /usr/local/nagios/etc/servers/clients.cfg'
+sudo sh -c 'echo "}" >> /usr/local/nagios/etc/servers/clients.cfg'
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
