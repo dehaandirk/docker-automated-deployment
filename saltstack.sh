@@ -12,10 +12,6 @@ sudo sed -i '/#master: salt/c\master: 127.0.0.1' /etc/salt/minion
 sudo service salt-master restart
 
 
-
-
-
-
 # install docker met salt
 cd ~
 sudo mkdir /srv/salt
@@ -25,14 +21,14 @@ sudo cp /tmp/network/app.sls /srv/salt/app.sls
 sudo cp /tmp/network/wordpress.sls /srv/salt/wordpress.sls
 sudo cp /tmp/network/docker_install.sls /srv/salt/docker_install.sls
 
+sudo mkdir /srv/salt/scripts
+sudo cp /tmp/network/docker.sh /srv/salt/scripts/docker.sh
+sudo cp /tmp/network/wordpress.sh /srv/salt/scripts/wordpress.sh
 
 
 
 
-#sudo salt-call state.highstate 
-#sudo salt-key -L
-#sudo salt-key -Ay
-#sudo salt '*' test.ping
-#sudo salt 'Minion1' state.apply docker_install
+
+
 
  

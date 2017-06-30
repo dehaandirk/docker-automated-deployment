@@ -1,5 +1,3 @@
 base:  
   '*':
-    - docker
-    - app
-    - wordpress
+    - docker_install

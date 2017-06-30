@@ -14,3 +14,13 @@ sudo sh saltstack.sh
 
 #sudo sh nagios_connect.sh
 #sudo sh saltstack_minion.sh
+
+
+
+
+
+#sudo salt-call state.highstate 
+#sudo salt-key -L
+#sudo salt-key -Ay
+#sudo salt '*' test.ping
+#sudo salt 'Minion1' state.apply docker_install
