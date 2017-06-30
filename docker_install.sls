@@ -1,11 +1,14 @@
-/tmp/network/wordpress.sh:
-  cmd.wait:
-    - watch:
-      - pkg: wordpresspkg
-  file.managed:
-    - source: salt://utils/scripts/wordpress.sh
+compile_and_install docker:
+  cmd.script:
+    - source: salt://scripts/docker.sh
+    - user: root
+    - group: root
+    - shell: /bin/bash
 
-wordpresspkg:
-  pkg.installed:
-    - require:
-      - file: /tmp/network/wordpress.sh
+
+compile_and_install wordpress:
+  cmd.script:
+    - source: salt://scripts/wordpress.sh
+    - user: root
+    - group: root
+    - shell: /bin/bash

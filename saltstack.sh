@@ -23,5 +23,16 @@ sudo cp /tmp/network/top.sls /srv/salt/top.sls
 sudo cp /tmp/network/docker.sls /srv/salt/docker.sls
 sudo cp /tmp/network/app.sls /srv/salt/app.sls
 sudo cp /tmp/network/wordpress.sls /srv/salt/wordpress.sls
+sudo cp /tmp/network/docker_install.sls /srv/salt/docker_install.sls
 
-#sudo salt-call state.highstate  
+
+
+
+
+#sudo salt-call state.highstate 
+#sudo salt-key -L
+#sudo salt-key -Ay
+#sudo salt '*' test.ping
+#sudo salt 'Minion1' state.apply docker_install
+
+ 
